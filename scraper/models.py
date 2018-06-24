@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+class PollenForecast(models.Model):
+	text=models.TextField()
+
+class AirQualityReport(models.Model):
+	text=models.TextField()
