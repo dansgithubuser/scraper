@@ -1,12 +1,21 @@
 from django.db import models
+import datetime
 import re
 from urllib.request import urlopen
+
+def already_done(Model):
+	if Model.objects.count()==0: return False
+	if Model.objects.latest('created').created.day==datetime.datetime.utcnow().day:
+		print('already done')
+		return True
+	return False
 
 class PollenForecast(models.Model):
 	text=models.TextField()
 	created=models.DateTimeField(auto_now_add=True)
 
 	def scrape():
+		if already_done(PollenForecast): return
 		try:
 			response=urlopen('https://www.theweathernetwork.com/ca/forecasts/pollen/ontario/toronto').read().decode()
 			match=re.search(
@@ -72,6 +81,7 @@ class AirQualityReport(models.Model):
 	created=models.DateTimeField(auto_now_add=True)
 
 	def scrape():
+		if already_done(AirQualityReport): return
 		try:
 			response=urlopen('https://www.theweathernetwork.com/ca/forecasts/air-quality/ontario/toronto').read().decode()
 			match=re.search(
