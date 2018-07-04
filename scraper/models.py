@@ -58,6 +58,7 @@ class PollenForecast(models.Model):
 			)
 			assert match
 			groups=match.groups()
+			print('got {}'.format(groups))
 			assert all([len(i) for i in groups])
 		except Exception as e:
 			print('exception raised, dumping response')
@@ -106,6 +107,7 @@ class AirQualityReport(models.Model):
 			)
 			assert match
 			groups=match.groups()
+			print('got {}'.format(groups))
 			assert all([len(i) for i in groups[:-2]])
 		except Exception as e:
 			print('exception raised, dumping response')
