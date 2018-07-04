@@ -97,16 +97,16 @@ class AirQualityReport(models.Model):
 						'<span>([^<]+)</span>.*?'
 					'</div>.*?'
 				'</div>.*?'
-				'<div class="column forecast last">.*?'
+				'(?:<div class="column forecast last">.*?'
 					'<p class="title">	([^<]+)	</p>.*?'
 					'<div class=".*?'
-						'<span>([^<]+)</span>',
+						'<span>([^<]+)</span>)?',
 				response,
 				re.DOTALL,
 			)
 			assert match
 			groups=match.groups()
-			assert all([len(i) for i in groups])
+			assert all([len(i) for i in groups[:-2]])
 		except Exception as e:
 			print('exception raised, dumping response')
 			print(response)
@@ -114,6 +114,7 @@ class AirQualityReport(models.Model):
 		l=[]
 		for i in range(0, len(groups), 2):
 			time=groups[i]
+			if time is None: break
 			risk=groups[i+1]
 			l.append([time, risk])
 		report=AirQualityReport(text=str(l))
