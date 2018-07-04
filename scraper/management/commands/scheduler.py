@@ -24,7 +24,7 @@ Subject: {}
 	server.sendmail(gmail, [gmail], content)
 	server.close()
 
-@sched.scheduled_job('cron', minute='0,15,30,45')
+@sched.scheduled_job('cron', second='0')
 def scheduled_job():
 	print('scraping')
 	for i in dir(scraper.models):
