@@ -3,6 +3,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import django
 import os
 import smtplib
+import traceback
 
 sched=BlockingScheduler()
 
@@ -42,7 +43,7 @@ exception: {}
 extra: {}
 
 https://dashboard.heroku.com/apps/stark-mesa-98224/logs
-				'''.format(e, e.scraper_extra),
+				'''.format(traceback.format_exc(), e.scraper_extra),
 			)
 	print('complete')
 
