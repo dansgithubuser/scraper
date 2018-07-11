@@ -26,9 +26,9 @@ class PollenForecast(models.Model):
 							'<span class="date-level">([^<]+)</span>[^<]*'
 						'</div>[^<]*'
 						'<div class="level-wrapper">[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
 						'</div>[^<]*'
 					'</div>[^<]*'
 					'<div class="column ">[^<]*'
@@ -37,9 +37,9 @@ class PollenForecast(models.Model):
 							'<span class="date-level">([^<]+)</span>[^<]*'
 						'</div>[^<]*'
 						'<div class="level-wrapper">[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
 						'</div>[^<]*'
 					'</div>[^<]*'
 					'<div class="column last">[^<]*'
@@ -48,9 +48,9 @@ class PollenForecast(models.Model):
 							'<span class="date-level">([^<]+)</span>[^<]*'
 						'</div>[^<]*'
 						'<div class="level-wrapper">[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
-							'<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
+							'(?:<div class="[^"]+">([^<]+) - <span class="pollen-level">([^<]+)</span></div>[^<]*)?'
 						'</div>[^<]*'
 					'</div>',
 				response,
@@ -58,7 +58,6 @@ class PollenForecast(models.Model):
 			assert match
 			groups=match.groups()
 			print('got {}'.format(groups))
-			assert all([len(i) for i in groups])
 		except Exception as e:
 			e.scraper_extra={'response': response}
 			raise
@@ -69,6 +68,7 @@ class PollenForecast(models.Model):
 			specifics=[]
 			for j in range(3):
 				pollen=groups[i+2+j*2+0]
+				if not pollen: break
 				amount=groups[i+2+j*2+1]
 				specifics.append([pollen, amount])
 			l.append([date, overall, specifics])
