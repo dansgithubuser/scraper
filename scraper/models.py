@@ -63,7 +63,7 @@ class PollenForecast(models.Model):
 		except Exception as e:
 			print('exception raised, dumping response')
 			print(response)
-			raise e
+			raise
 		l=[]
 		for i in range(0, len(groups), 8):
 			date=groups[i]

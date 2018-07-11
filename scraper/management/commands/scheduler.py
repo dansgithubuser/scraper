@@ -36,7 +36,10 @@ def scheduled_job():
 			print(e)
 			send_gmail(
 				'{} scrape failed'.format(i),
-				'https://dashboard.heroku.com/apps/stark-mesa-98224/logs',
+				'''\
+exception: {}
+https://dashboard.heroku.com/apps/stark-mesa-98224/logs
+				'''.format(e),
 			)
 	print('complete')
 
