@@ -61,8 +61,7 @@ class PollenForecast(models.Model):
 			print('got {}'.format(groups))
 			assert all([len(i) for i in groups])
 		except Exception as e:
-			print('exception raised, dumping response')
-			print(response)
+			e.scraper_extra={'response': response}
 			raise
 		l=[]
 		for i in range(0, len(groups), 8):
@@ -110,9 +109,8 @@ class AirQualityReport(models.Model):
 			print('got {}'.format(groups))
 			assert all([len(i) for i in groups[:-2]])
 		except Exception as e:
-			print('exception raised, dumping response')
-			print(response)
-			raise e
+			e.scraper_extra={'response': response}
+			raise
 		l=[]
 		for i in range(0, len(groups), 2):
 			time=groups[i]

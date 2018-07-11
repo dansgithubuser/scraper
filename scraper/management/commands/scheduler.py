@@ -33,13 +33,16 @@ def scheduled_job():
 		print('scraping {}'.format(i))
 		try: attr.scrape()
 		except Exception as e:
-			print(e)
+			print('exception, sending gmail')
 			send_gmail(
 				'{} scrape failed'.format(i),
 				'''\
 exception: {}
+
+extra: {}
+
 https://dashboard.heroku.com/apps/stark-mesa-98224/logs
-				'''.format(e),
+				'''.format(e, e.scraper_extra),
 			)
 	print('complete')
 
