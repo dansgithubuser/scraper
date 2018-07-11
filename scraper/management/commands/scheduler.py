@@ -21,7 +21,7 @@ Subject: {}
 	server=smtplib.SMTP_SSL('smtp.gmail.com', 465)
 	server.ehlo()
 	server.login(gmail, os.environ['GMAIL_PASSWORD'])
-	server.sendmail(gmail, [gmail], content)
+	server.sendmail(gmail, [gmail], content.encode('utf-8').decode('ascii', 'backslashreplace'))
 	server.close()
 
 @sched.scheduled_job('cron', minute='0,15,30,45')
