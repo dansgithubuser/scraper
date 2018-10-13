@@ -18,6 +18,7 @@ class PollenForecast(models.Model):
 		if already_done(PollenForecast): return
 		try:
 			response=urlopen('https://www.theweathernetwork.com/ca/forecasts/pollen/ontario/toronto').read().decode()
+			if 'Pollen station out of season' in response: return
 			match=re.search(
 				'<div class="threeday_outlook clearfix">[^<]*'
 					'<div class="column ">[^<]*'
