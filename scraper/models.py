@@ -84,6 +84,7 @@ class AirQualityReport(models.Model):
 		if already_done(AirQualityReport): return
 		try:
 			response=urlopen('https://www.theweathernetwork.com/ca/forecasts/air-quality/ontario/toronto').read().decode()
+			if 'Forecasts are not available at this time.' in response: return
 			match=re.search(
 				'<div class="column forecast ">.*?'
 					'<p class="title">	([^<]+)	</p>.*?'
