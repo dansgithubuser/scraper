@@ -42,7 +42,7 @@ exception: {}
 
 extra: {}
 
-https://dashboard.heroku.com/apps/stark-mesa-98224/logs
+https://dashboard.heroku.com/apps/dans-scraper/logs
 				'''.format(traceback.format_exc(), e.scraper_extra),
 			)
 	print('complete')

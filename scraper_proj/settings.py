@@ -26,7 +26,7 @@ SECRET_KEY = 'a2i6l5qoudsks5f*+j%8pn!lh_u3)q6=tca)^nnlg4^_j8p1kv'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'https://stark-mesa-98224.herokuapp.com/',
+    'https://dans-scraper.herokuapp.com/',
 ]
 
 

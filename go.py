@@ -18,5 +18,5 @@ djangogo.main(args,
 	app='scraper',
 	database='scraper_database',
 	user='scraper_user',
-	heroku_url='https://stark-mesa-98224.herokuapp.com/',
+	heroku_url='https://dans-scraper.herokuapp.com/',
 )
